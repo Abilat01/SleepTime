@@ -1,24 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RcN-vX-PNc">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Время сна-->
+        <scene sceneID="Aqj-Tj-PBr">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController id="CZo-Le-JRV" customClass="ViewController" customModule="SleepTime" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yzC-Nb-a1E">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sleeptime" translatesAutoresizingMaskIntoConstraints="NO" id="MwN-Iq-h2B">
+                                <rect key="frame" x="0.0" y="88" width="414" height="186"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="186" id="FGk-Sm-zbg"/>
+                                </constraints>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5GE-9H-eOS">
+                                <rect key="frame" x="0.0" y="282" width="414" height="580"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="CZo-Le-JRV" id="S0D-rM-AIp"/>
+                                    <outlet property="delegate" destination="CZo-Le-JRV" id="Vj1-S0-dyF"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BCl-S0-Pjf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="MwN-Iq-h2B" secondAttribute="trailing" id="EaA-nZ-Zcx"/>
+                            <constraint firstItem="MwN-Iq-h2B" firstAttribute="top" secondItem="BCl-S0-Pjf" secondAttribute="top" id="HjK-56-Gn3"/>
+                            <constraint firstItem="MwN-Iq-h2B" firstAttribute="leading" secondItem="yzC-Nb-a1E" secondAttribute="leading" id="KgD-nM-8g9"/>
+                            <constraint firstItem="MwN-Iq-h2B" firstAttribute="leading" secondItem="5GE-9H-eOS" secondAttribute="leading" id="OlF-EQ-FE7"/>
+                            <constraint firstItem="5GE-9H-eOS" firstAttribute="bottom" secondItem="BCl-S0-Pjf" secondAttribute="bottom" id="alr-qj-tYj"/>
+                            <constraint firstItem="MwN-Iq-h2B" firstAttribute="trailing" secondItem="5GE-9H-eOS" secondAttribute="trailing" id="m2m-iW-wDL"/>
+                            <constraint firstItem="5GE-9H-eOS" firstAttribute="top" secondItem="MwN-Iq-h2B" secondAttribute="bottom" constant="8" symbolic="YES" id="xBa-Xw-Z2J"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Время сна" id="mmb-P9-7Ju">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="0DL-pC-lqC">
+                            <connections>
+                                <action selector="addPressed:" destination="CZo-Le-JRV" id="LPk-t6-807"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="5GE-9H-eOS" id="W7J-vE-tpX"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FIe-ji-HmW" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2744.9275362318845" y="112.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="U0B-LX-EDr">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RcN-vX-PNc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Eqj-yb-ux8">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CZo-Le-JRV" kind="relationship" relationship="rootViewController" id="77w-Hk-3Wm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mQe-mc-XPp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1834.7826086956522" y="112.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Sleeptime" width="3542" height="1992"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
