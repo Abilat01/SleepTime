@@ -6,14 +6,14 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var context: NSManagedObjectContext!
     var array = [Date]()
-    
-    
     
     lazy var dateFormatter: DateFormatter = {
         let formater = DateFormatter()
@@ -21,7 +21,6 @@ class ViewController: UIViewController {
         formater.timeStyle = .short
         return formater
     }()
-    
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
         let date = Date()
