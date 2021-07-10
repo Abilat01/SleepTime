@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var context: NSManagedObjectContext!
-    var array = [Date]()
+    var user: User!
     
     lazy var dateFormatter: DateFormatter = {
         let formater = DateFormatter()
@@ -23,14 +23,36 @@ class ViewController: UIViewController {
     }()
     
     @IBAction func addPressed(_ sender: UIBarButtonItem) {
-        let date = Date()
-        array.append(date)
-        tableView.reloadData()
+        
+        let sleep = Sleep(context: context)
+        sleep.date = Date()
+        let sleeps = user.sleeps?.mutableCopy() as? NSMutableOrderedSet
+        sleeps?.add(sleep)
+        user.sleeps = sleeps
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        let userName = "Danya"
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", userName)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            if results.isEmpty {
+                user = User(context: context)
+                user.name = userName
+                try context.save()
+            } else {
+                user = results.first
+            }
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
     }
 }
 
@@ -39,17 +61,19 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.count
+        return user.sleeps?.count ?? 0
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
         
-        let date = array[indexPath.row]
-        cell?.textLabel?.text = dateFormatter.string(from: date)
+        guard let sleep = user.sleeps?[indexPath.row] as? Sleep,
+        let sleepDate = sleep.date
+        else { return cell }
         
-        return cell!
+        cell.textLabel!.text = dateFormatter.string(from: sleepDate)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
